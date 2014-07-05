@@ -17,7 +17,7 @@ RUN echo '%wheel ALL=(ALL) ALL' >> /etc/sudoers
 # enabling sudo over ssh
 RUN sed -i 's/.*requiretty$/#Defaults requiretty/' /etc/sudoers
 
-ENV JAVA_HOME /usr/lib/jvm/jre
+ENV JAVA_HOME /usr/lib/jvm/java-7-openjdk-amd64/jre
 
 ENV FABRIC8_KARAF_NAME root
 ENV FABRIC8_BINDADDRESS 0.0.0.0
@@ -37,7 +37,8 @@ WORKDIR /home/fabric8
 
 #RUN wget -nv -O fabric8.zip http://central.maven.org/maven2/io/fabric8/fabric8-karaf/1.1.0.CR2/fabric8-karaf-1.1.0.CR2.zip
 ADD fabric8-karaf-1.1.0.CR2.zip /home/fabric8/fabric8.zip
-
+ADD startup.sh /home/fabric8/startup.sh
+RUN chmod +x /home/fabric8/startup.sh
 RUN chmod ugo+rw /home/fabric8/fabric8.zip
 USER fabric8
 
@@ -77,7 +78,6 @@ RUN echo >> data/log/karaf.log
 WORKDIR /home/fabric8
 
 #RUN curl --silent --output startup.sh https://raw.githubusercontent.com/fabric8io/fabric8-docker/c9583367e3da4ca7adfc535107b9dc9ce07589d0/startup.sh
-#RUN chmod +x startup.sh
 
 EXPOSE 22 1099 2181 8101 8181 9300 9301 44444 61616 
 
