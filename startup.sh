@@ -7,7 +7,7 @@ echo Connecting to ZooKeeper: $FABRIC8_ZOOKEEPER_URL using environment: $FABRIC8
 echo Using bindaddress: $FABRIC8_BINDADDRESS
 
 # TODO allow this to be disabled via an env var
-service sshd start
+service ssh start
 
 # TODO if enabled should we tail the karaf log to work nicer with docker logs?
 #tail -f /home/fabric8/data/log/karaf.log
