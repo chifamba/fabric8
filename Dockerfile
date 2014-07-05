@@ -13,6 +13,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -q python-software-propert
 
 # install SSH server so we can connect multiple times to the container
 RUN apt-get install -y supervisor 
+RUN apt-get install -y git
 RUN mkdir /var/run/sshd && mkdir -p /var/log/supervisor
 
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
