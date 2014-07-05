@@ -9,6 +9,14 @@ RUN apt-get install -y unzip
 RUN apt-get install -y telnet
 RUN apt-get install -y openjdk-7-jdk
 RUN apt-get install -y maven
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y -q python-software-properties
+
+# install SSH server so we can connect multiple times to the container
+RUN apt-get install -y supervisor 
+RUN mkdir /var/run/sshd && mkdir -p /var/log/supervisor
+
+ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
 # enable no pass and speed up authentication
 RUN sed -i 's/#PermitEmptyPasswords no/PermitEmptyPasswords yes/;s/#UseDNS yes/UseDNS no/' /etc/ssh/sshd_config
 
@@ -37,9 +45,8 @@ WORKDIR /home/fabric8
 
 #RUN wget -nv -O fabric8.zip http://central.maven.org/maven2/io/fabric8/fabric8-karaf/1.1.0.CR2/fabric8-karaf-1.1.0.CR2.zip
 ADD fabric8-karaf-1.1.0.CR2.zip /home/fabric8/fabric8.zip
-ADD startup.sh /home/fabric8/startup.sh
-RUN chmod +x /home/fabric8/startup.sh
 RUN chmod ugo+rw /home/fabric8/fabric8.zip
+
 USER fabric8
 
 RUN unzip  /home/fabric8/fabric8.zip 
@@ -81,8 +88,8 @@ WORKDIR /home/fabric8
 
 EXPOSE 22 1099 2181 8101 8181 9300 9301 44444 61616 
 
-#USER root
+USER root
 
 
 
-CMD /home/fabric8/startup.sh
+CMD ["/usr/bin/supervisord"]

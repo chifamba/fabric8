@@ -13,4 +13,4 @@ service ssh start
 #tail -f /home/fabric8/data/log/karaf.log
 
 #sudo -u fabric8 /home/fabric8/fabric8-karaf/bin/fabric8 server
-/home/fabric8/fabric8-karaf/bin/fabric8 server
+/home/fabric8/fabric8-karaf/bin/fabric8 server &
