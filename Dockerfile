@@ -28,7 +28,7 @@ RUN groupadd wheel
 RUN useradd -m fabric8 ; echo fabric8: | chpasswd ; usermod -a -G wheel fabric8
 
 # command line goodies
-RUN echo "export JAVA_HOME=/usr/lib/jvm/jre" >> /etc/profile
+RUN echo "export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/jre" >> /etc/profile
 RUN echo "alias ll='ls -l --color=auto'" >> /etc/profile
 RUN echo "alias grep='grep --color=auto'" >> /etc/profile
 
@@ -66,7 +66,7 @@ RUN echo >> users.properties
 RUN echo admin=admin,admin >> users.properties 
 
 # lets enable logging to standard out
-RUN echo log4j.rootLogger=INFO, stdout, osgi:* >> org.ops4j.pax.logging.cfg 
+#RUN echo log4j.rootLogger=INFO, stdout, osgi:* >> org.ops4j.pax.logging.cfg 
 
 WORKDIR /home/fabric8/fabric8-karaf
 
@@ -82,5 +82,7 @@ WORKDIR /home/fabric8
 EXPOSE 22 1099 2181 8101 8181 9300 9301 44444 61616 
 
 #USER root
+
+
 
 CMD /home/fabric8/startup.sh
