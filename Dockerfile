@@ -81,6 +81,6 @@ WORKDIR /home/fabric8
 
 EXPOSE 22 1099 2181 8101 8181 9300 9301 44444 61616 
 
-USER root
+#USER root
 
 CMD /home/fabric8/startup.sh
